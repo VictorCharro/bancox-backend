@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 import com.bancox.BancoX.entities.Conta;
 
 @Repository
-public interface ContaRepositories extends JpaRepository<Conta, Long> {
+public interface ContaRepository extends JpaRepository<Conta, Long> {
 
     public Optional<Conta> findByCpf(String cpf);
 }

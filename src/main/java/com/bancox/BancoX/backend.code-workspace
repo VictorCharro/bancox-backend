@@ -1,0 +1,15 @@
+{
+  "folders": [
+	{
+		"path": "../../../../../.."
+	},
+	{
+		"path": "../../../../../../../frontend"
+	}
+],
+  "settings": {
+    "liveServer.settings.multiRootWorkspaceName": "frontend",
+    "indentRainbow.indicatorStyle": "light",
+    "indentRainbow.lightIndicatorStyleLineWidth": 3
+  }
+}
