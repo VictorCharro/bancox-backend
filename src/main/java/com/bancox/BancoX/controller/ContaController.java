@@ -1,7 +1,9 @@
 package com.bancox.BancoX.controller;
 
+import com.bancox.BancoX.dtos.ConfiguracoesDTO;
 import com.bancox.BancoX.dtos.ContaRequestDTO;
 import com.bancox.BancoX.dtos.ContaResponseDTO;
+import com.bancox.BancoX.dtos.DepositoDTO;
 import com.bancox.BancoX.dtos.ExtratoResponseDto;
 import com.bancox.BancoX.dtos.LoginRequestDTO;
 import com.bancox.BancoX.dtos.TransferenciaRequestDTO;
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -69,9 +72,9 @@ public class ContaController {
         return ResponseEntity.ok(response);
     }
 
-    @PatchMapping("/depositar/{id}")
-    public ResponseEntity<ContaResponseDTO> depositar(@PathVariable Long id, @RequestBody Map<String, BigDecimal> valorMap) {
-        return ResponseEntity.ok(contaService.depositar(id, valorMap.get("valor")));
+    @PostMapping("/depositar/{id}")
+    public ResponseEntity<ContaResponseDTO> depositar(@PathVariable Long id, @RequestBody DepositoDTO dto) {
+        return ResponseEntity.ok(contaService.depositar(id,dto.valor()));
     }
 
     @PostMapping("/transferir/{idOrigem}")
@@ -88,5 +91,10 @@ public class ContaController {
     @PostMapping("/pagar-boleto/{id}")
     public ResponseEntity<ContaResponseDTO> pagarBoleto(@PathVariable Long id, @RequestBody Map<String, BigDecimal> valorMap) {
         return ResponseEntity.ok(contaService.pagarBoleto(id, valorMap.get("valor")));
+    }
+
+    @PutMapping("/configuracoes/{id}")
+    public void atualizar(@PathVariable Long id, @RequestBody ConfiguracoesDTO dto){
+        contaService.atualizarConta(id, dto.nome(), dto.email(), dto.senha());
     }
 }

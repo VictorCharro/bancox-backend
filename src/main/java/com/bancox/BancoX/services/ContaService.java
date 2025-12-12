@@ -237,4 +237,22 @@ public class ContaService {
                 contaAtualizada.getSaldo()
         );
     }
+
+    public void atualizarConta(
+            Long id,
+            String nome,
+            String email,
+            String senha){
+
+        Conta conta = contaRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Conta não encontrada."));
+
+        if (!passwordEncoder.matches(senha, conta.getSenha())) {
+            throw new IllegalArgumentException("Senha incorreta");
+        }
+
+        conta.setNome(nome);
+        conta.setEmail(email);
+        contaRepository.save(conta);
+    }
 }
